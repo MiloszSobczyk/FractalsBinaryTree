@@ -39,7 +39,17 @@ def draw_tree(depth, angle, length, angle_change, length_modifier):
     
     return fig
 
-def create_tree_gif(filename, iterations = 6, starting_angle = np.pi / 2, starting_length = 1, angle_change = np.pi / 6, length_modifier = 0.7):
+# Parameters:
+# path              - path for folder where to save files,
+# gif_name          - generated gif name,
+# delete_files      - specifies whether to delete intermediate files used for generating,
+# iterations        - number of iterations used to generate fractal,
+# starting_angle    - starting angle of a binary tree,
+# starting_length   - starting length of a binary tree,
+# angle_change      - change in branch angle with each iteration,
+# length_modifier   - modifier in branch length in each iteration,
+def create_tree_gif(path = './', gif_name = 'tree_animation.gif', delete_files = True, iterations = 6, starting_angle = np.pi / 2, starting_length = 1, angle_change = np.pi / 6, length_modifier = 0.7):
+    filename = f'{path}{gif_name}';
     filenames = []
     for i in range(iterations + 1):
         fig = draw_tree(i, starting_angle, starting_length, angle_change, length_modifier)
@@ -52,8 +62,7 @@ def create_tree_gif(filename, iterations = 6, starting_angle = np.pi / 2, starti
         for img_filename in filenames:
             image = imageio.imread(img_filename)
             writer.append_data(image)
-            os.remove(img_filename)
+            if delete_files:
+                os.remove(img_filename)
 
-path = './gifs/'
-gif_name = 'tree_animation.gif'
-create_tree_gif(f'{path}{gif_name}')
+create_tree_gif()
