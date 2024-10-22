@@ -53,7 +53,7 @@ def create_tree_gif(path = './', gif_name = 'tree_animation.gif', delete_files =
     filenames = []
     for i in range(iterations + 1):
         fig = draw_tree(i, starting_angle, starting_length, angle_change, length_modifier)
-        img_filename = f"tree_{i}.png"
+        img_filename = f"{path}tree_{i}.png"
         fig.savefig(img_filename)
         plt.close(fig)
         filenames.append(img_filename)
@@ -65,4 +65,4 @@ def create_tree_gif(path = './', gif_name = 'tree_animation.gif', delete_files =
             if delete_files:
                 os.remove(img_filename)
 
-create_tree_gif()
+create_tree_gif('./gifs/')
